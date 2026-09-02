@@ -1,0 +1,29 @@
+package rules
+
+import (
+	"github.com/spf13/cobra"
+	"github.com/stackitcloud/stackit-cli/internal/cmd/ufw/rules/list"
+	"github.com/stackitcloud/stackit-cli/internal/pkg/args"
+	"github.com/stackitcloud/stackit-cli/internal/pkg/types"
+	"github.com/stackitcloud/stackit-cli/internal/pkg/utils"
+)
+
+func NewCmd(params *types.CmdParams) *cobra.Command {
+	cmd := &cobra.Command{
+		Use:   "rules",
+		Short: "Provides functionality for UFW rules",
+		Long:  "Provides functionality for UFW rules.",
+		Args:  args.NoArgs,
+		Run:   utils.CmdHelp,
+	}
+	addSubcommands(cmd, params)
+	return cmd
+}
+
+func addSubcommands(cmd *cobra.Command, params *types.CmdParams) {
+	cmd.AddCommand(list.NewCmd(params))
+	//cmd.AddCommand(describe.NewCmd(params))
+	//cmd.AddCommand(create.NewCmd(params))
+	//cmd.AddCommand(delete.NewCmd(params))
+	//cmd.AddCommand(update.NewCmd(params))
+}
