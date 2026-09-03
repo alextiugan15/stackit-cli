@@ -2,6 +2,7 @@ package rules
 
 import (
 	"github.com/spf13/cobra"
+	"github.com/stackitcloud/stackit-cli/internal/cmd/ufw/rules/describe"
 	"github.com/stackitcloud/stackit-cli/internal/cmd/ufw/rules/list"
 	"github.com/stackitcloud/stackit-cli/internal/pkg/args"
 	"github.com/stackitcloud/stackit-cli/internal/pkg/types"
@@ -22,7 +23,7 @@ func NewCmd(params *types.CmdParams) *cobra.Command {
 
 func addSubcommands(cmd *cobra.Command, params *types.CmdParams) {
 	cmd.AddCommand(list.NewCmd(params))
-	//cmd.AddCommand(describe.NewCmd(params))
+	cmd.AddCommand(describe.NewCmd(params))
 	//cmd.AddCommand(create.NewCmd(params))
 	//cmd.AddCommand(delete.NewCmd(params))
 	//cmd.AddCommand(update.NewCmd(params))

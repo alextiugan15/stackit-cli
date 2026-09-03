@@ -105,12 +105,10 @@ func NewCmd(params *types.CmdParams) *cobra.Command {
 	return cmd
 }
 
-// Configure command flags (type, default value, and description)
 func configureFlags(cmd *cobra.Command) {
 	cmd.Flags().Int64(limitFlag, 0, "Maximum number of entries to list")
 }
 
-// Parse command input and return a standardized model
 func parseInput(p *print.Printer, cmd *cobra.Command, _ []string) (*inputModel, error) {
 	globalFlags := globalflags.Parse(p, cmd)
 	if globalFlags.ProjectId == "" {
@@ -138,13 +136,11 @@ func parseInput(p *print.Printer, cmd *cobra.Command, _ []string) (*inputModel, 
 	return &model, nil
 }
 
-// Build request to the API
 func buildRequest(ctx context.Context, model *inputModel, apiClient *ufw.APIClient) ufw.ApiListRulesRequest {
 	req := apiClient.DefaultAPI.ListRules(ctx, model.ProjectId, model.Region)
 	return req
 }
 
-// Output result based on the configured output format
 func outputResult(p *print.Printer, outputFormat, projectLabel string, resources []ufw.RuleResponse) error {
 	return p.OutputResult(outputFormat, resources, func() error {
 		if len(resources) == 0 {
@@ -153,11 +149,11 @@ func outputResult(p *print.Printer, outputFormat, projectLabel string, resources
 		}
 
 		table := tables.NewTable()
-		table.SetHeader("PRODUCT", "DEPLOYMENT TARGET", "PROTOCOL",
+		table.SetHeader("PRODUCT", "SOURCE", "DEPLOYMENT TARGET", "PROTOCOL",
 			"DIRECTION", "PORT RANGE", "ETHER TYPE", "STATUS")
 		for i := range resources {
 			resource := resources[i]
-			table.AddRow(resource.Product, resource.InstanceName, resource.Protocol, resource.Direction,
+			table.AddRow(resource.Product, resource.SourceIP, resource.InstanceName, resource.Protocol, resource.Direction,
 				resource.PortRange, resource.EtherType, resource.Status)
 		}
 		err := table.Display(p)
