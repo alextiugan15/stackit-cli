@@ -18,7 +18,7 @@ import (
 
 	"github.com/stackitcloud/stackit-cli/internal/pkg/print"
 	"github.com/stackitcloud/stackit-cli/internal/pkg/services/ufw/client"
-	wait "github.com/stackitcloud/stackit-sdk-go/services/ufw/v1api/wait"
+	"github.com/stackitcloud/stackit-sdk-go/services/ufw/v1api/wait"
 )
 
 const (
